@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>BioEye</title>
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+
+    <!-- Import PhoneGap -->
+    <script type="text/javascript" charset="utf-8" src="phonegap.0.9.5.js"></script>
+
+    <!-- Import tools -->
+    <script type="text/javascript" charset="utf-8" src="utils/commons.js"></script>
+    <script type="text/javascript" charset="utf-8" src="utils/location_utils.js"></script>
+    <script type="text/javascript" charset="utf-8" src="utils/sensor_controller.js"></script>
+    <script type="text/javascript" charset="utf-8" src="canvas/overlays/SummaryBox.js"></script>
+    <script type="text/javascript" charset="utf-8" src="canvas/overlays/CompassDrawer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="canvas/overlays/ResourceDrawer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="canvas/overlays/GPSFlag.js"></script>
+    <script type="text/javascript" charset="utf-8" src="canvas/mCanvas.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sensors/compass.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sensors/accel.js"></script>
+    <script type="text/javascript" charset="utf-8" src="location/ar_location.js"></script>
+
+    <!-- Import BioEye SDK -->
+    <script type="text/javascript" charset="utf-8" src="sdk/GeoNode.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sdk/Category.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sdk/GenericLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sdk/Photo.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sdk/BioDiversityInfo.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sdk/BioDiversityResultHandler.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        var main_azimuth;
+        var main_location;
+        var main_roll;
+
+        // Wait for PhoneGap to load
+        function onLoad() {
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+
+        // PhoneGap is ready
+        function onDeviceReady() {
+            initCanvas();
+            location_startWatch();
+            compass_startWatch();
+            accel_startWatch();
+            getLayersList();
+        }
+
+    </script>
+</head>
+<body onload="onLoad()">
+<canvas id="canvas">
+</canvas>
+<div id="loading_div">
+    <img src="images/loading.gif">
+</div>
+<div id="summary_box">
+    <img id="summary_back_image" src="images/label_back_h.png" height="100%" width="100%">
+    <table id="summary_table">
+        <tr>
+            <td id="td_summary_image" rowspan="3">
+                <div id="div_summary_image"></div>
+            </td>
+            <td id="td_summary_name">
+                <div id="div_summary_name"></div>
+            </td>
+        </tr>
+        <tr>
+            <td id="td_summary_distance">
+                <div id="div_summary_distance"></div>
+            </td>
+        </tr>
+        <tr>
+            <td id="td_summary_description">
+                <div id="div_summary_description"></div>
+            </td>
+        </tr>
+    </table>
+    <a href="javascript:void(0);" id="summary_close" onclick="hideSummaryBox();">
+        <img src="images/bclose_24_normal.png">
+    </a>
+</div>
+</body>
+</html>
